@@ -63,12 +63,14 @@ class EmployeeService:
         db: AsyncSession,
         update_item: EmployeeUpdate,
     ):
-        obj = await EmployeeRepository(db=db).get_by_employee_id(employee_id=employee_id)
+        repository = EmployeeRepository(db=db)
+
+        obj = await repository.get_by_employee_id(employee_id=employee_id)
 
         EmployeeValidator.update(obj=obj, update_item=update_item)
 
         data = update_item.model_dump(exclude_unset=True)
-        obj = await EmployeeRepository(db=db).update_by_instance(obj=obj, update_item=data)
+        obj = await repository.update_by_instance(obj=obj, update_item=data)
 
         web_read = EmployeeFactory.build_web_read(obj=obj)
         return web_read
@@ -77,7 +79,7 @@ class EmployeeService:
     async def delete_by_id(cls, employee_id: str, db: AsyncSession):
         repository = EmployeeRepository(db=db)
 
-        obj = await EmployeeRepository(db=db).get_by_employee_id(employee_id=employee_id)
+        obj = await repository.get_by_employee_id(employee_id=employee_id)
 
         EmployeeValidator.delete(obj=obj)
 
