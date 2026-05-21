@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    env_file:
+      - path: .env
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d GainMiles"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - path: .env
+    ports:
+      - "26522:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

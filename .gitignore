@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+/.idea
+/.shared
+/.venv
+
+.env
+.env.dev
+.env.test
+scripts/create_api/
+docs/GainMiles Python Online Test (2026).docx
+docs/interview_employee_data.xlsx

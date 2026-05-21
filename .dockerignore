@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+/.idea
+/.shared
+/.env
+/.venv
+/docs
+/scripts
+/.agents
