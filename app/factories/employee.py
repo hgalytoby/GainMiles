@@ -1,5 +1,5 @@
 from ..models.employee import EmployeeModel
-from ..schemas.employee import EmployeeWebCreated, EmployeeWebRead
+from ..schemas.employee import EmployeeWebRead
 
 
 class EmployeeFactory:
@@ -11,6 +11,3 @@ class EmployeeFactory:
     def build_web_read_items(cls, items: list[EmployeeModel]) -> list[EmployeeWebRead]:
         return [cls.build_web_read(obj=item) for item in items]
 
-    @classmethod
-    def build_wer_created(cls, obj: EmployeeModel) -> EmployeeWebCreated:
-        return EmployeeWebCreated.model_validate(obj)
